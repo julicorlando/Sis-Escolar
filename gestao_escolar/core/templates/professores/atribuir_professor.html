@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Atribuir Professor{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+            <a href="{% url 'cadastro_professor' %}">Cadastro de Professores</a>
+            <a href="{% url 'cadastro_turma' %}">Cadastro de Turmas</a>
+            <a href="{% url 'lista_professores' %}">Lista de Professores</a>
+        </ul>
+    </nav>
+</header>
+
+<h1>Atribuir Professor a Turma e Matéria</h1>
+
+<div class="form-container">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="professor">Professor:</label>
+            {{ form.professor }}
+            {% if form.professor.errors %}
+                <ul class="errorlist">
+                    {% for error in form.professor.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <div class="form-group">
+            <label for="turma">Turma:</label>
+            {{ form.turma }}
+            {% if form.turma.errors %}
+                <ul class="errorlist">
+                    {% for error in form.turma.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <div class="form-group">
+            <label for="materia">Matéria:</label>
+            {{ form.materia }}
+            {% if form.materia.errors %}
+                <ul class="errorlist">
+                    {% for error in form.materia.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <div class="form-group">
+            <label for="data_inicio">Data Início:</label>
+            {{ form.data_inicio }}
+            {% if form.data_inicio.errors %}
+                <ul class="errorlist">
+                    {% for error in form.data_inicio.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <div class="form-group">
+            <label for="data_fim">Data Fim:</label>
+            {{ form.data_fim }}
+            {% if form.data_fim.errors %}
+                <ul class="errorlist">
+                    {% for error in form.data_fim.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    
+        <button type="submit">Atribuir</button>
+    </form>
+</div>
+
+{% endblock %}

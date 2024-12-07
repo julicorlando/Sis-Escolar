@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Turmas{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+            <a href="{% url 'cadastro_turma' %}">Cadastro de Turmas</a>
+            <a href="{% url 'atribuir_professor' %}">Atribuir Professor</a>
+            <a href="{% url 'lista_professores' %}">Lista de Professores</a>
+        </ul>
+    </nav>
+</header>
+
+<h1>Lista de Turmas</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nome da Turma</th>
+            <th>Ano Letivo</th>
+            <th>Turno</th>
+            <th>Capacidade Máxima</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for turma in turmas %}
+            <tr>
+                <td>{{ turma.nome_turma }}</td>
+                <td>{{ turma.ano_letivo }}</td>
+                <td>{{ turma.get_turno_display }}</td>
+                <td>{{ turma.capacidade_maxima }}</td>
+                <td>
+                    <a href="{% url 'detalhes_turma' turma.id %}">Ver Detalhes</a>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">Nenhuma turma cadastrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

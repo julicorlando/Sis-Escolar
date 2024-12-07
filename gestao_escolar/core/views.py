@@ -162,6 +162,14 @@ def matricular_aluno(request):
     
     return render(request, 'alunos/matricular_aluno.html', {'form': form})
 
+def lista_turmas(request):
+    turmas = Turma.objects.all()
+    return render(request, 'turmas/lista_turmas.html', {'turmas': turmas})
+
+def detalhes_turma(request, turma_id):
+    turma = get_object_or_404(Turma, id=turma_id)
+    return render(request, 'turmas/detalhes_turma.html', {'turma': turma})
+
 def cadastro_professor(request):
     if request.method == 'POST':
         form = ProfessorForm(request.POST)
@@ -205,14 +213,28 @@ def cadastro_materia(request):
 def atribuir_professor(request):
     if request.method == 'POST':
         form = AtribuicaoForm(request.POST)
+        
         if form.is_valid():
+            # Adicionando logs para depuração
+            print("Formulário válido. Salvando...")
             form.save()
+
+            # Mensagem de sucesso
             messages.success(request, "Professor atribuído com sucesso!")
-            return redirect('atribuir_professor')
+            
+            # Redireciona para a lista de professores
+            return redirect('lista_professores')
+        else:
+            # Exibe os erros do formulário para depuração
+            print("Formulário inválido. Erros:")
+            print(form.errors)
+            
+            # Mensagem de erro
+            messages.error(request, "Houve um erro ao atribuir o professor.")
     else:
         form = AtribuicaoForm()
 
-    return render(request, 'atribuir_professor.html', {'form': form})
+    return render(request, 'professores/atribuir_professor.html', {'form': form})
 
 def area_alunos(request):
     # Lógica para exibir a área dos alunos

@@ -6,6 +6,10 @@ class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
         fields = ['nome_completo', 'data_nascimento', 'cpf', 'rg', 'telefone', 'email', 'endereco', 'nome_responsavel', 'historico_academico']
+        widgets = {
+            'data_nascimento': forms.DateInput(attrs={'type': 'date'}),  # Formato de data HTML5
+        }
+
 
 # Formulário para cadastro de Turma
 class TurmaForm(forms.ModelForm):
@@ -38,3 +42,7 @@ class AtribuicaoForm(forms.ModelForm):
     class Meta:
         model = Atribuicao
         fields = ['professor', 'turma', 'materia', 'data_inicio', 'data_fim']
+        widgets = {
+            'data_inicio': forms.DateInput(attrs={'type': 'date'}),  # Formato de data HTML5
+            'data_fim': forms.DateInput(attrs={'type': 'date'}),  # Formato de data HTML5
+        }

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes da Turma{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+            <a href="{% url 'cadastro_turma' %}">Cadastro de Turmas</a>
+            <a href="{% url 'atribuir_professor' %}">Atribuir Professor</a>
+            <a href="{% url 'lista_turmas' %}">Lista de Turmas</a>
+        </ul>
+    </nav>
+</header>
+
+<h3>Professores Atribuídos:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Nome do Professor</th>
+            <th>Telefone</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if turma.atribuicoes.exists %}
+            {% for atribuicao in turma.atribuicoes.all %}
+                <tr>
+                    <td>{{ atribuicao.professor.nome_completo }}</td>
+                    <td>{{ atribuicao.professor.contato_telefone }}</td>
+                    <td>{{ atribuicao.professor.contato_email }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">Nenhum professor atribuído.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+    <h3>Alunos Matriculados:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Aluno</th>
+                <th>Data de Matrícula</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matricula in turma.matricula_set.all %}
+                <tr>
+                    <td>{{ matricula.aluno.nome_completo }}</td>
+                    <td>{{ matricula.data_matricula }}</td>
+                    <td>{{ matricula.aluno.email }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum aluno matriculado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

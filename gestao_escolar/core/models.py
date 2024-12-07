@@ -20,9 +20,17 @@ class Turma(models.Model):
     nome_turma = models.CharField(max_length=50)  # Ex: 6º Ano A
     ano_letivo = models.IntegerField()  # Ano letivo (ex: 2024)
     turno = models.CharField(
-        max_length=10, choices=[('Matutino', 'Matutino'), ('Vespertino', 'Vespertino'), ('Noturno', 'Noturno')]
+        max_length=10, choices=[('Integral','Integral'), ('Matutino', 'Matutino'), ('Vespertino', 'Vespertino'), ('Noturno', 'Noturno')]
     )  # Turno da turma
     capacidade_maxima = models.IntegerField()  # Capacidade máxima de alunos
+    turno_choices = [
+        ('I', 'Integral'),
+        ('M', 'Manhã'),
+        ('T', 'Tarde'),
+        ('N', 'Noite'),
+    ]
+    turno = models.CharField(max_length=1, choices=turno_choices)
+
 
     def __str__(self):
         return f"{self.nome_turma} - {self.ano_letivo}"
@@ -117,11 +125,11 @@ class Professor(models.Model):
 
 # Modelo para Atribuição de Professor a Matéria
 class Atribuicao(models.Model):
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    professor = models.ForeignKey(Professor, related_name='atribuicoes', on_delete=models.CASCADE)    
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
     data_inicio = models.DateField()
-    data_fim = models.DateField(null=True, blank=True)
+    data_fim = models.DateField()
 
     def __str__(self):
-        return f"{self.professor.nome_completo} - {self.turma.nome_turma} - {self.materia.nome_materia}"
+        return f'{self.professor.nome_completo} - {self.turma.nome_turma} - {self.materia.nome_materia}'
