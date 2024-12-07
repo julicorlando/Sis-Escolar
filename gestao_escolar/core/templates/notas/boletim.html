@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Boletim de {{ aluno.nome_completo }}</title>
+</head>
+<body>
+    <h1>Boletim de {{ aluno.nome_completo }}</h1>
+
+    <p><strong>Média das Notas:</strong> {{ media_notas }}</p>
+    <p><strong>Taxa de Frequência:</strong> {{ taxa_frequencia }}%</p>
+
+    {% if alerta_frequencia %}
+        <p style="color: red;">{{ alerta_frequencia }}</p>
+    {% endif %}
+
+    <h2>Notas:</h2>
+    <ul>
+        {% for nota in boletim.notas.all %}
+            <li>{{ nota.disciplina }}: {{ nota.nota }} ({{ nota.get_bimestre_display }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Frequência:</h2>
+    <ul>
+        {% for frequencia in boletim.frequencias.all %}
+            <li>{{ frequencia.data }}: {% if frequencia.presente %}Presente{% else %}Ausente{% endif %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

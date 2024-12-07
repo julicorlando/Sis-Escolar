@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Importar Alunos</title>
+</head>
+<body>
+    <h1>Importar Alunos</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Selecione o arquivo CSV ou Excel:</label>
+        <input type="file" name="file" accept=".csv, .xlsx" required>
+        <button type="submit">Importar</button>
+    </form>
+</body>
+</html>

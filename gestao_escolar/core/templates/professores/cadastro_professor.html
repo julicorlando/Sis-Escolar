@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Professores{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+<a href="{% url 'cadastro_turma' %}">Cadastro de Turmas</a>
+<a href="{% url 'lista_professores' %}">Listar Professores</a>
+</ul>
+    </nav>
+</header>
+
+        <section class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="help-text">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% if field.errors %}
+                            <ul class="error-list">
+                                {% for error in field.errors %}
+                                    <li class="error">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+        </section>
+{% endblock %}

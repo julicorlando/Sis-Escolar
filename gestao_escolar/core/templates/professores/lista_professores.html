@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Professores{% endblock %}
+
+{% block content %}
+
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+<a href="{% url 'cadastro_professor' %}">Cadastro de Professores</a>
+<a href="{% url 'cadastro_turma' %}">Cadastro de Turmas</a>
+</ul>
+    </nav>
+</header>
+
+<h1>Lista de Professores</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Turmas</th>
+                    <th>Disciplinas</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for professor in professores %}
+                    <tr>
+                        <td>{{ professor.nome_completo }}</td>
+                        <td>{{ professor.contato_telefone }}</td>
+                        <td>{{ professor.contato_email }}</td>
+                        <td>
+                            {% for atribuicao in professor.atribuicoes.all %}
+                                {{ atribuicao.turma.nome_turma }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for disciplina in professor.disciplinas.all %}
+                                {{ disciplina.nome_materia }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{% url 'editar_professor' professor.id %}" onclick="return confirm('Tem certeza que deseja editar este professor?')">Editar</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">Nenhum professor cadastrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

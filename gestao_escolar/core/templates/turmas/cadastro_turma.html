@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de turmas{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+<a href="{% url 'cadastro_professor' %}">Cadastro de Professores</a>
+<a href="{% url 'lista_professores' %}">Listar Professores</a>
+</ul>
+    </nav>
+</header>
+
+    <div class="form-container">
+        <h1>Cadastro de Turma</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+{% endblock %}

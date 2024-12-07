@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Matricular alunos{% endblock %}
+
+{% block content %}
+
+    <header class="main-header">
+        <nav>
+            <ul class="menu">
+                <a href="{% url 'aluno_lista' %}">Lista de Alunos</a>
+                <a href="{% url 'cadastro_aluno' %}">Cadastro de Alunos</a>
+                <a href="{% url 'importar_alunos' %}">Importar Alunos</a>
+            </ul>
+        </nav>
+        </header>
+
+    <div class="form-container">
+        <h1>Matricular Aluno em Turma</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Matricular</button>
+        </form>
+    </div>
+{% endblock %}

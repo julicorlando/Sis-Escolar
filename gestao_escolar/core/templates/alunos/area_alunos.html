@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Área Alunos{% endblock %}
+
+{% block content %}
+<header class="main-header">
+<nav>
+    <ul class="menu">
+        <a href="{% url 'aluno_lista' %}">Lista de Alunos</a>
+        <a href="{% url 'cadastro_aluno' %}">Cadastro de Alunos</a>
+        <a href="{% url 'importar_alunos' %}">Importar Alunos</a>
+        <a href="{% url 'matricular_aluno' %}">Matrícula de Alunos</a>
+    </ul>
+</nav>
+</header>
+
+{% endblock %}

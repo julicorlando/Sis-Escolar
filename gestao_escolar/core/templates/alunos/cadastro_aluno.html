@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de alunos{% endblock %}
+
+{% block content %}
+
+<header class="main-header">
+    <nav>
+        <ul class="menu">
+            <a href="{% url 'aluno_lista' %}">Lista de Alunos</a>
+            <a href="{% url 'importar_alunos' %}">Importar Alunos</a>
+            <a href="{% url 'matricular_aluno' %}">Matrícula de Alunos</a>
+        </ul>
+    </nav>
+    </header>
+    <div class="form-container">
+        <h1>Cadastro de Aluno</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+{% endblock %}
